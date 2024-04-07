@@ -1,0 +1,104 @@
+-- lua
+
+function onSpeedChange(uiHandle, id, newValue)
+    speed = newValue*(max_speed/100)
+    move(speed, turn)
+end
+
+function onTurnChange(uiHandle, id, newValue)
+    turn = newValue*(max_turn/100)
+    move(speed, turn)
+end
+
+function onGripper()
+    if gripper_open then
+        closeGripper()
+        gripper_open = false
+    else
+        openGripper()
+        gripper_open = true
+    end
+end
+
+function openGripper()
+    sim.setJointTargetPosition(left_arm, 30*(math.pi/180))
+    sim.setJointTargetPosition(right_arm, -30*(math.pi/180))
+end
+
+function closeGripper()
+    sim.setJointTargetPosition(left_arm, -30*(math.pi/180))
+    sim.setJointTargetPosition(right_arm, 30*(math.pi/180))
+end
+
+function move(v,w)
+    sim.setJointTargetVelocity(left_wheel, (v-(b*w))/wheel_radius)
+    sim.setJointTargetVelocity(right_wheel, (v+(b*w))/wheel_radius)
+end
+
+function moveForward()
+    sim.setJointTargetVelocity(left_wheel, 0.5*(max_speed/wheel_radius))
+    sim.setJointTargetVelocity(right_wheel, 0.5*(max_speed/wheel_radius))
+end
+
+function moveBackwards()
+    sim.setJointTargetVelocity(left_wheel, -0.5*(max_speed/wheel_radius))
+    sim.setJointTargetVelocity(right_wheel, -0.5*(max_speed/wheel_radius))
+end
+
+function turnLeft()
+    sim.setJointTargetVelocity(left_wheel, -0.5*(max_speed/wheel_radius))
+    sim.setJointTargetVelocity(right_wheel, 0.5*(max_speed/wheel_radius))
+end
+
+function turnRight()
+    sim.setJointTargetVelocity(left_wheel, 0.5*(max_speed/wheel_radius))
+    sim.setJointTargetVelocity(right_wheel, -0.5*(max_speed/wheel_radius))
+end
+
+function stop()
+    sim.setJointTargetVelocity(left_wheel, 0)
+    sim.setJointTargetVelocity(right_wheel, 0)
+end
+
+function sysCall_init()
+    --sim = require('sim')
+
+    -- do some initialization here
+    left_arm = sim.getObject('/LeftArmJoint')
+    right_arm = sim.getObject('/RightArmJoint')
+    left_wheel = sim.getObject('/LeftWheelJoint')
+    right_wheel = sim.getObject('/RightWheelJoint')
+    wheel_radius = 0.03
+    max_speed = 0.1
+    max_turn = 0.3
+    speed = 0
+    turn = 0
+    b = 0.0565
+    gripper_open = true
+    ui = simUI.create('<ui enabled="true" modal="false" title="DYOR" closable="true" layout="vbox" placement="relative" position="20,20">'..
+    '<label enabled="true" text="Linear Speed"></label>'..
+    '<hslider enabled="true" minimum="-100" maximum="100" on-change="onSpeedChange"></hslider>'..
+    '<label enabled="true" text="Angular Speed"></label>'..
+    '<hslider enabled="true" minimum="-100" maximum="100" on-change="onTurnChange"></hslider>'..
+    '<button enabled="true" text="Open/Close" checkable="true" on-click="onGripper"></button>'..
+    '<button enabled="true" text="Forward" on-click="moveForward"></button>'..
+    '<button enabled="true" text="Backwards" on-click="moveBackwards"></button>'..
+    '<button enabled="true" text="Left" on-click="turnLeft"></button>'..
+    '<button enabled="true" text="Right" on-click="turnRight"></button>'..
+    '<button enabled="true" text="Stop" on-click="stop"></button>'..
+    '</ui>')
+end
+
+function sysCall_actuation()
+    -- put your actuation code here
+end
+
+function sysCall_sensing()
+    -- put your sensing code here
+end
+
+function sysCall_cleanup()
+    -- do some clean-up here
+end
+
+-- See the user manual or the available code snippets for additional callback functions and details
