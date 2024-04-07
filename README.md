@@ -8,6 +8,7 @@ Step-1:  The components are CAD files found online at https://roboticafaciles/co
 
 Step-2: Import all the models into the scene
 
+
 Step-3: Create pure shapes for **base, front, wheels, arms, caster wheel and caster support**
 
 Step-4: Group the extracted shapes as per the requirements like the following
