@@ -55,8 +55,3 @@ Step-8: Find the code for the custom UI plugin in the file code.txt
 The UI looks like this
 
 <img width="221" alt="ui" src="https://github.com/Veman-Mendu/3WheelRobotSample/assets/49408236/0acee71a-5852-4207-9c0c-3d89827e9ddc">
-
-
-Please find the simulation video in the images folder.
-
-
