@@ -50,8 +50,13 @@ Step-7: Place the proximity sensor at the sensor location and camera sensor at t
 
 
 Step-8: Find the code for the custom UI plugin in the file code.txt
-
-# The Simulation result
 The UI looks like this
 
 <img width="221" alt="ui" src="https://github.com/Veman-Mendu/3WheelRobotSample/assets/49408236/0acee71a-5852-4207-9c0c-3d89827e9ddc">
+
+Step-9: Create a wall around the robot for testing and learning about the sensor.
+The toatal setup is like this
+
+<img width="1280" alt="autonomousSetup" src="https://github.com/Veman-Mendu/3WheelRobotSample/assets/49408236/a065755a-2570-4091-a765-358f49bb94a2">
+
+# Any ideas on making this project more complex, challenging and beautiful are appreiated and can be mailed to mvsprabhath17@gmail.com
